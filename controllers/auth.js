@@ -1,31 +1,23 @@
 const { User } = require("../models");
+const hashPassword = require("../utils/hashPassword");
 
 const Signup = async (req, res, next) => {
   try {
     const { name, role, password, email } = req.body;
+    const isEmailExist = await User.findOne({ email });
 
-    // validation
-    if (!name) {
+    if (isEmailExist) {
       res.code = 400;
-      throw new Error("Name is required");
+      throw new Error("Email already taken");
     }
-    if (!email) {
-      res.code = 400;
-      throw new Error("email is required");
-    }
-    if (!password) {
-      res.code = 400;
-      throw new Error("password is required");
-    }
-    if (password.length < 0) {
-      res.code = 400;
-      throw new Error("password is should be at least 6 characters");
-    }
+
+    // hash password
+    const hashedPassword = await hashPassword(password);
 
     const newUser = new User({
       name,
       role,
-      password,
+      password: hashedPassword,
       email,
     });
 
