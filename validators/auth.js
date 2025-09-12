@@ -28,7 +28,16 @@ const validateSignIn = [
     .withMessage("Password must be 6 character or 20 character max!"),
 ];
 
+const validateEmail = [
+  check("email")
+    .notEmpty()
+    .withMessage("email cannot be empty")
+    .isEmail()
+    .withMessage("must be a valid email"),
+];
+
 module.exports = {
   validateSignup,
   validateSignIn,
+  validateEmail,
 };

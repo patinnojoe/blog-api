@@ -9,11 +9,19 @@ router.post(
   validate,
   authController.Signup
 );
+
 router.post(
   "/sign-in",
   authValidator.validateSignIn,
   validate,
   authController.SignIn
+);
+
+router.post(
+  "/validate-user",
+  authValidator.validateEmail,
+  validate,
+  authController.validateUser
 );
 
 module.exports = router;
