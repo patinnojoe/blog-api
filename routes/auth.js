@@ -9,5 +9,11 @@ router.post(
   validate,
   authController.Signup
 );
+router.post(
+  "/sign-in",
+  authValidator.validateSignIn,
+  validate,
+  authController.SignIn
+);
 
 module.exports = router;
