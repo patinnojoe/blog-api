@@ -24,4 +24,11 @@ router.post(
   authController.validateUser
 );
 
+router.post(
+  "/verify-user",
+  authValidator.validateCode,
+  validate,
+  authController.verifyUser
+);
+
 module.exports = router;

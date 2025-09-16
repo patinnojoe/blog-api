@@ -36,8 +36,18 @@ const validateEmail = [
     .withMessage("must be a valid email"),
 ];
 
+const validateCode = [
+  check("email")
+    .notEmpty()
+    .withMessage("email cannot be empty")
+    .isEmail()
+    .withMessage("must be a valid email"),
+  check("code").notEmpty().withMessage("verification code cannot be empty"),
+];
+
 module.exports = {
   validateSignup,
   validateSignIn,
   validateEmail,
+  validateCode,
 };

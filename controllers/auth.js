@@ -109,8 +109,40 @@ const validateUser = async (req, res, next) => {
   }
 };
 
+const verifyUser = async (req, res, next) => {
+  try {
+    const { email, code } = req.body;
+    const user = await User.findOne({ email });
+
+    // no user with email
+    if (!user) {
+      res.code = 404;
+      throw new Error("No user with this email exist");
+    }
+
+    // user code
+    if (code !== user.verficationCode) {
+      res.code = 400;
+      throw new Error("Invalid code");
+    }
+
+    // if code exist and match
+    user.isVerified = true;
+    user.verficationCode = null;
+    await user.save();
+
+    res.status({
+      status: 200,
+      message: "user verified successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   Signup,
   SignIn,
   validateUser,
+  verifyUser,
 };

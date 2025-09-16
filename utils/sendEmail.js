@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+const { email_password, sender_email } = require("../config/keys");
 
 const sendEmail = async ({ emailTo, subject, code, content }) => {
   const transporter = nodemailer.createTransport({
@@ -6,8 +7,8 @@ const sendEmail = async ({ emailTo, subject, code, content }) => {
     port: 587,
     secure: false,
     auth: {
-      user: "innocentjosiah57@gmail.com",
-      pass: "hagzwbqfsksqwutj",
+      user: sender_email,
+      pass: email_password,
     },
   });
 
