@@ -5,6 +5,7 @@ const userSchema = mongoose.Schema(
     name: { type: String, require: true },
     email: { type: String, unique: true, trim: true, require: true },
     password: { type: String, require: true, minLength: 6 },
+    forgotPasswordCode: { type: String },
 
     /**
      * 1=>super admin
