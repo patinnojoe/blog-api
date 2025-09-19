@@ -60,9 +60,12 @@ const validateNewpassword = [
 ];
 
 const validateChangePassword = [
-  check("password")
+  check("oldPassword")
     .isLength({ min: 6, max: 20 })
     .withMessage("Password must be a min of 6 character and a max of 20"),
+  check("newPassword")
+    .notEmpty()
+    .withMessage("the new password field must be filled"),
 ];
 
 module.exports = {

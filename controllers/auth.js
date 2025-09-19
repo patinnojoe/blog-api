@@ -5,6 +5,10 @@ const generateToken = require("../utils/generateToken");
 const generateCode = require("../utils/generateCode");
 const sendEmail = require("../utils/sendEmail");
 
+const {
+  reconstructFieldPath,
+} = require("express-validator/lib/field-selection");
+
 const Signup = async (req, res, next) => {
   try {
     const { name, role, password, email } = req.body;
@@ -203,7 +207,39 @@ const recoverPassword = async (req, res, next) => {
 
 const changePassword = async (req, res, next) => {
   try {
-    res.json(req.user);
+    const { email } = req.user;
+    const { oldPassword, newPassword, confirmPassword } = req.body;
+
+    const user = await User.findOne({ email: email });
+
+    if (!user) {
+      res.code = 404;
+      throw new Error("user not found!");
+    }
+    const isPasswordMatched = await comparePassword(oldPassword, user.password);
+
+    if (!isPasswordMatched) {
+      res.code = 400;
+      throw new Error("Enter the correct old password");
+    }
+    if (newPassword?.trim() !== confirmPassword?.trim()) {
+      res.code = 400;
+      throw new Error("New Password and confirm password field must match");
+    }
+
+    if (newPassword?.trim() == oldPassword?.trim()) {
+      res.code = 400;
+      throw new Error("You are providinng the old password, pick a new one");
+    }
+
+    const hashedPassword = await hashPassword(newPassword);
+    user.password = hashedPassword;
+    await user.save();
+    res.status(200).json({
+      message: "Password updated successfully",
+      code: 200,
+      status: true,
+    });
   } catch (error) {
     next(error);
   }

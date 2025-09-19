@@ -51,6 +51,12 @@ router.post(
   validate,
   authController.recoverPassword
 );
-router.put("/change-password", isAuth, authController.changePassword);
+router.put(
+  "/change-password",
+  isAuth,
+  validateChangePassword,
+  validate,
+  authController.changePassword
+);
 
 module.exports = router;

@@ -25,7 +25,7 @@ const isAuth = async (req, res, next) => {
       }
     } else {
       res.code = 400;
-      throw new Error("bad request");
+      throw new Error("Invalid token");
     }
   } catch (error) {
     next(error);
