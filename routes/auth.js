@@ -1,7 +1,13 @@
 const express = require("express");
 const { authController } = require("../controllers");
 const { authValidator, validate } = require("../validators");
-const { validateEmail, validateNewpassword } = require("../validators/auth");
+const {
+  validateEmail,
+  validateNewpassword,
+  validateChangePassword,
+} = require("../validators/auth");
+const isAuth = require("../midddleware/auth");
+
 const router = express.Router();
 
 router.post(
@@ -45,5 +51,6 @@ router.post(
   validate,
   authController.recoverPassword
 );
+router.put("/change-password", isAuth, authController.changePassword);
 
 module.exports = router;

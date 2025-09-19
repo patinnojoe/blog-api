@@ -51,7 +51,15 @@ const validateNewpassword = [
     .withMessage("email cannot be empty")
     .isEmail()
     .withMessage("must be a valid email"),
+
   check("code").notEmpty().withMessage("verification code cannot be empty"),
+
+  check("password")
+    .isLength({ min: 6, max: 20 })
+    .withMessage("Password must be a min of 6 character and a max of 20"),
+];
+
+const validateChangePassword = [
   check("password")
     .isLength({ min: 6, max: 20 })
     .withMessage("Password must be a min of 6 character and a max of 20"),
@@ -63,4 +71,5 @@ module.exports = {
   validateEmail,
   validateCode,
   validateNewpassword,
+  validateChangePassword,
 };
