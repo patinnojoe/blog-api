@@ -244,6 +244,16 @@ const changePassword = async (req, res, next) => {
     next(error);
   }
 };
+const editProfile = async (req, res, next) => {
+  try {
+    const { _id } = req.user;
+    const user = await findOne({ _id });
+    console.log(user);
+    console.log(req);
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   Signup,
@@ -253,4 +263,5 @@ module.exports = {
   forgotPasswordCode,
   recoverPassword,
   changePassword,
+  editProfile,
 };

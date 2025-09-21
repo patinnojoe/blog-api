@@ -59,4 +59,12 @@ router.put(
   authController.changePassword
 );
 
+router.put(
+  "/edit-profile",
+  isAuth,
+  validateEmail,
+  validate,
+  authController.editProfile
+);
+
 module.exports = router;

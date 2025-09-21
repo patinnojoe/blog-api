@@ -68,6 +68,10 @@ const validateChangePassword = [
     .withMessage("the new password field must be filled"),
 ];
 
+const validateEditProfile = [
+  check('email').custom()
+]
+
 module.exports = {
   validateSignup,
   validateSignIn,
