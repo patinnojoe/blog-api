@@ -5,6 +5,7 @@ const {
   validateEmail,
   validateNewpassword,
   validateChangePassword,
+  validateEditProfile,
 } = require("../validators/auth");
 const isAuth = require("../midddleware/auth");
 
@@ -62,7 +63,7 @@ router.put(
 router.put(
   "/edit-profile",
   isAuth,
-  validateEmail,
+  validateEditProfile,
   validate,
   authController.editProfile
 );

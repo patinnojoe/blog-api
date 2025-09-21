@@ -1,5 +1,5 @@
 const { check } = require("express-validator");
-
+const validateEmailFunc = require("./validateEmail");
 const validateSignup = [
   check("name").notEmpty().withMessage("Name cannot be empty"),
 
@@ -69,8 +69,15 @@ const validateChangePassword = [
 ];
 
 const validateEditProfile = [
-  check('email').custom()
-]
+  check("email").custom(async (email) => {
+    if (email) {
+      const isValidEmail = validateEmailFunc(email);
+      if (!isValidEmail) {
+        throw new Error("invalid Email");
+      }
+    }
+  }),
+];
 
 module.exports = {
   validateSignup,
@@ -79,4 +86,5 @@ module.exports = {
   validateCode,
   validateNewpassword,
   validateChangePassword,
+  validateEditProfile,
 };
