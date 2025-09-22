@@ -1,5 +1,7 @@
-const authRoutes = require('./auth')
+const authRoutes = require("./auth");
+const categoryRoutes = require("./category");
 
 module.exports = {
-    authRoutes
-}
+  authRoutes,
+  categoryRoutes,
+};
