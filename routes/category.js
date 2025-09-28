@@ -5,7 +5,14 @@ const isAuth = require("../midddleware/auth");
 const isAdmin = require("../midddleware/admin");
 
 const router = express.Router();
-
+router.get("/", isAuth, categoryController.getCategories);
+router.get(
+  "/:id",
+  isAuth,
+  categoryValidator.idValidator,
+  validate,
+  categoryController.getCategById
+);
 router.post(
   "/",
   isAuth,
