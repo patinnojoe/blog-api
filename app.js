@@ -6,7 +6,7 @@ const morgan = require("morgan");
 dotenv.config();
 const connectDB = require("./init/mongodb");
 const routes = require("./routes/auth");
-const { authRoutes, categoryRoutes } = require("./routes");
+const { authRoutes, categoryRoutes, fileRoutes } = require("./routes");
 const { errorMiddleware } = require("./midddleware");
 const { notFound } = require("./controllers");
 
@@ -20,6 +20,7 @@ app.use(morgan("dev"));
 // routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/category", categoryRoutes);
+app.use("/api/v1/file", fileRoutes);
 app.use(notFound);
 
 // error handler
