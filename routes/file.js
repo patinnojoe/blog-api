@@ -7,8 +7,11 @@ const router = express.Router();
 router.post(
   "/upload",
   isAuth,
-  uploadMiddleware.array("image", 3),
+  uploadMiddleware.single("image"),
   fileController.addFile
 );
+
+router.get("/signed-url", isAuth, fileController.getSignedURL);
+router.get("/delete-file", isAuth, fileController.deleteFile);
 
 module.exports = router;
