@@ -1,11 +1,20 @@
 const mongoose = require("mongoose");
 
-const postSchema = mongoose.Schema({
-  title: { type: String, require: true },
-  category: { type: mongoose.Types.ObjectId, require: true, ref: "category" },
-  content: { type: String },
-  postedBy: { type: mongoose.Types.ObjectId, require: true, ref: "user" },
-});
+const postSchema = mongoose.Schema(
+  {
+    title: { type: String, require: true },
+    desc: { type: String },
+    content: { type: String },
+    file: { type: mongoose.Types.ObjectId, ref: "file" },
+    category: {
+      type: mongoose.Types.ObjectId,
+      ref: "category",
+      required: true,
+    },
+    updatedBy: { type: mongoose.Types.ObjectId, ref: "user", required: true },
+  },
+  { timestamps: true }
+);
 
 const Post = mongoose.model("post", postSchema);
 

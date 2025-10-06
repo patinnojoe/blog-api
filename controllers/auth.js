@@ -275,6 +275,22 @@ const editProfile = async (req, res, next) => {
   }
 };
 
+const currentUser = async (req, res, next) => {
+  try {
+    const { _id } = req.user;
+    const user = await User.findById(_id).select("-password -verficationCode");
+
+    if (!user) {
+      res.status(404);
+      throw new Error("Invalid user, please login");
+    }
+
+    res.status(200).json({ message: "user", data: user });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   Signup,
   SignIn,
@@ -284,4 +300,5 @@ module.exports = {
   recoverPassword,
   changePassword,
   editProfile,
+  currentUser,
 };

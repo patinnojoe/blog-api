@@ -68,4 +68,6 @@ router.put(
   authController.editProfile
 );
 
+router.get("/current-user", isAuth, authController.currentUser);
+
 module.exports = router;
